@@ -47,3 +47,11 @@ amqplib==1.0.2
 # Required by mozlog
 # sha256: 7cVxMGHxCWYEi_a0DZpRSzgeC6hJxk4DTE72wYR9MAc
 blessings==1.6
+
+
+# needed for Heroku
+# sha256: pPs3sChg9rFhf2RpSHRx_Qht0tOLvOZAwgVYYrnEAZw
+redis==2.10.3
+
+# sha256: gmUn3J0zTtTtds2uZy_cu8z2FBhmV9txZ5q1jfhpRYo
+waitress==0.8.9
