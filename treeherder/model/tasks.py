@@ -105,6 +105,7 @@ def publish_job_action(project, action, job_id, requester):
     :param job_id str: The job id the action was requested for.
     :param requester str: The email address associated with the request.
     """
+    print('creating publisher....')
     publisher = pulse_connection.get_publisher()
     if not publisher:
         return

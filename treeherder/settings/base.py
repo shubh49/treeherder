@@ -26,6 +26,8 @@ TREEHERDER_RO_DATABASE_PASSWORD = os.environ.get("TREEHERDER_RO_DATABASE_PASSWOR
 TREEHERDER_RO_DATABASE_HOST = os.environ.get("TREEHERDER_RO_DATABASE_HOST", TREEHERDER_DATABASE_HOST)
 
 TREEHERDER_MEMCACHED = os.environ.get("TREEHERDER_MEMCACHED", "")
+TREEHERDER_MEMCACHED_USERNAME = os.environ.get("TREEHERDER_MEMCACHED_USERNAME")
+TREEHERDER_MEMCACHED_PASSWORD = os.environ.get("TREEHERDER_MEMCACHED_PASSWORD")
 TREEHERDER_MEMCACHED_KEY_PREFIX = os.environ.get("TREEHERDER_MEMCACHED_KEY_PREFIX", "treeherder")
 DEBUG = os.environ.get("TREEHERDER_DEBUG", False)
 
@@ -48,6 +50,8 @@ RABBITMQ_PASSWORD = os.environ.get("TREEHERDER_RABBITMQ_PASSWORD", "")
 RABBITMQ_VHOST = os.environ.get("TREEHERDER_RABBITMQ_VHOST", "")
 RABBITMQ_HOST = os.environ.get("TREEHERDER_RABBITMQ_HOST", "")
 RABBITMQ_PORT = os.environ.get("TREEHERDER_RABBITMQ_PORT", "")
+
+REDIS_URL = os.environ.get("TREEHERDER_REDIS_URL")
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = os.environ.get("TREEHERDER_DJANGO_SECRET_KEY", "my-secret-key")
@@ -302,7 +306,7 @@ REST_FRAMEWORK = {
     }
 }
 
-SITE_URL = "http://local.treeherder.mozilla.org"
+SITE_URL = os.environ.get("TREEHERDER_SITE_URL", "http://local.treeherder.mozilla.org")
 
 BUILDAPI_PENDING_URL = "https://secure.pub.build.mozilla.org/builddata/buildjson/builds-pending.js"
 BUILDAPI_RUNNING_URL = "https://secure.pub.build.mozilla.org/builddata/buildjson/builds-running.js"
@@ -322,7 +326,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 if (os.environ.get('TREEHERDER_ALLOWED_HOSTS')):
     ALLOWED_HOSTS = [os.environ.get('TREEHERDER_ALLOWED_HOSTS')]
 else:
-    ALLOWED_HOSTS = [".mozilla.org", ".allizom.org"]
+    ALLOWED_HOSTS = [".mozilla.org", ".allizom.org", "treeherder-test.herokuapp.com"]
 
 USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -390,6 +394,8 @@ CACHES = {
     "default": {
         "BACKEND": "treeherder.cache.MemcachedCache",
         "LOCATION": MEMCACHED_LOCATION,
+        "USERNAME": TREEHERDER_MEMCACHED_USERNAME,
+        "PASSWORD": TREEHERDER_MEMCACHED_PASSWORD,
         "TIMEOUT": 0,
         # bumping this is effectively equivalent to restarting memcached
         "VERSION": 1,
@@ -408,13 +414,22 @@ CACHES = {
 KEY_PREFIX = TREEHERDER_MEMCACHED_KEY_PREFIX
 
 # celery broker setup
-BROKER_URL = 'amqp://{0}:{1}@{2}:{3}/{4}'.format(
-    RABBITMQ_USER,
-    RABBITMQ_PASSWORD,
-    RABBITMQ_HOST,
-    RABBITMQ_PORT,
-    RABBITMQ_VHOST
-)
+if REDIS_URL is None:
+    BROKER_URL = 'amqp://{0}:{1}@{2}:{3}/{4}'.format(
+        RABBITMQ_USER,
+        RABBITMQ_PASSWORD,
+        RABBITMQ_HOST,
+        RABBITMQ_PORT,
+        RABBITMQ_VHOST
+    )
+else:
+    BROKER_URL = REDIS_URL
+    BROKER_TRANSPORT_OPTIONS = {
+        'visibility_timeout': 3600,
+        'fanout_prefix': True,
+        'fanout_patterns': True
+    }
+
 
 CELERY_IGNORE_RESULT = True
 
