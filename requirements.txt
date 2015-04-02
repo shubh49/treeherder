@@ -1,1 +1,3 @@
-requirements/compiled.txt
+requirements/common.txt
+requirements/checked-in.txt
+requirements/prod.txt
