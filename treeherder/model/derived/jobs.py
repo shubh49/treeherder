@@ -23,7 +23,7 @@ from treeherder.model.models import (Datasource,
                                      ReferenceDataSignatures,
                                      ExclusionProfile)
 
-from treeherder.model import utils
+from treeherder.model import utils, artifact
 from treeherder.model.tasks import (publish_resultset,
                                     publish_job_action)
 
@@ -1356,6 +1356,9 @@ into chunks of chunk_size size. Returns the number of result sets deleted"""
             # and that's ok.
             pass
 
+        # model used to interact with artifacts
+        am = artifact.ArtifactModel(self)
+
         for datum in data:
             # Make sure we can deserialize the json object
             # without raising an exception
@@ -1490,7 +1493,7 @@ into chunks of chunk_size size. Returns the number of result sets deleted"""
         self._load_log_urls(log_placeholders, job_id_lookup,
                             job_results)
 
-        self.load_job_artifacts(artifact_placeholders, job_id_lookup)
+        am.load_job_artifacts(artifact_placeholders, job_id_lookup)
 
         # If there is already a job_id stored with pending/running status
         # we need to update the information for the complete job
@@ -2308,132 +2311,44 @@ into chunks of chunk_size size. Returns the number of result sets deleted"""
                 debug_show=self.DEBUG,
                 placeholders=[lock_string])
 
-    def load_job_artifacts(self, artifact_data, job_id_lookup):
-        """
-        Determine what type of artifacts are contained in artifact_data and
-        store a list of job artifacts substituting job_guid with job_id. All
-        of the datums in artifact_data need to be one of the three
-        different tasty "flavors" described below.
 
-        artifact_placeholders:
 
-            Comes in through the web service as the "artifacts" property
-            in a job in a job collection
-            (https://github.com/mozilla/treeherder-client#job-collection)
+    #################
+    """
+    maybe all the code for generating bug suggestions should be in the api?
+    I dont think it belongs in the model utils.  Dunno.  Maybe it does.
 
-            A list of lists
-            [
-                [job_guid, name, artifact_type, blob, job_guid, name]
-            ]
+    But they need to be generated before the loop on line 2360, because that loop
+    needs to go over them as well.
 
-        job_artifact_collection:
+    The artifact collection passed into the API may have several kinds of artifacts (a collection) so
+    they would need to be checked just like here.
 
-            Comes in  through the web service as an artifact collection.
-            (https://github.com/mozilla/treeherder-client#artifact-collection)
+    maybe keeping the code in the utils for model, but call it from the api before
+    calling the above would be best.
 
-            A list of job artifacts:
-            [
-                {
-                    'type': 'json',
-                    'name': 'my-artifact-name',
-                    # blob can be any kind of structured data
-                    'blob': { 'stuff': [1, 2, 3, 4, 5] },
-                    'job_guid': 'd22c74d4aa6d2a1dcba96d95dccbd5fdca70cf33'
-                }
-            ]
+    """
+    #################
 
-        performance_artifact:
 
-            Same structure as a job_artifact_collection but the blob contains
-            a specialized data structure designed for performance data.
-        """
-        artifact_placeholders_list = []
-        job_artifact_list = []
 
-        performance_artifact_list = []
-        performance_artifact_job_id_list = []
 
-        for index, artifact in enumerate(artifact_data):
 
-            # Determine what type of artifact we have received
-            if artifact:
+    # def _get_bug_suggestions(self, artifact, job_id, bug_suggestions_list):
+    #     all_errors = artifact.get('step_data', {}).get('all_errors', [])
+    #
+    #     return utils.get_bug_suggestions(all_errors)
+    #
+    #
+    #     bug_suggestions_list.append(
+    #         (
+    #             job_id,
+    #             'Bug suggestions',
+    #             'json',
+    #             json.dumps(bug_suggestions)
+    #         )
+    #     )
 
-                job_id = None
-                job_guid = None
-
-                if isinstance(artifact, list):
-
-                    job_guid = artifact[0]
-                    job_id = job_id_lookup.get(job_guid, {}).get('id', None)
-
-                    self._adapt_job_artifact_placeholders(
-                        artifact, artifact_placeholders_list, job_id)
-
-                else:
-                    artifact_name = artifact['name']
-                    job_guid = artifact.get('job_guid', None)
-                    job_id = job_id_lookup.get(
-                        artifact['job_guid'], {}
-                    ).get('id', None)
-
-                    if artifact_name in PerformanceDataAdapter.performance_types:
-                        self._adapt_performance_artifact_collection(
-                            artifact, performance_artifact_list,
-                            performance_artifact_job_id_list, job_id)
-                    else:
-                        self._adapt_job_artifact_collection(
-                            artifact, job_artifact_list, job_id)
-
-                if not job_id:
-                    logger.error(
-                        ('load_job_artifacts: No job_id for '
-                         '{0} job_guid {1}'.format(self.project, job_guid)))
-
-            else:
-                logger.error(
-                    ('load_job_artifacts: artifact not '
-                     'defined for {0}'.format(self.project)))
-
-        # Store the various artifact types if we collected them
-        if artifact_placeholders_list:
-            self.store_job_artifact(artifact_placeholders_list)
-
-        if job_artifact_list:
-            self.store_job_artifact(job_artifact_list)
-
-        if performance_artifact_list and performance_artifact_job_id_list:
-            self.store_performance_artifact(
-                performance_artifact_job_id_list, performance_artifact_list)
-
-    def _adapt_job_artifact_placeholders(
-            self, artifact, artifact_placeholders_list, job_id):
-
-        if job_id:
-            # Replace job_guid with id in artifact data
-            artifact[0] = job_id
-            artifact[4] = job_id
-
-            artifact_placeholders_list.append(artifact)
-
-    def _adapt_job_artifact_collection(
-            self, artifact, artifact_data, job_id):
-
-        if job_id:
-            artifact_data.append((
-                job_id,
-                artifact['name'],
-                artifact['type'],
-                zlib.compress(artifact['blob']),
-                job_id,
-                artifact['name'],
-            ))
-
-    def _adapt_performance_artifact_collection(
-            self, artifact, artifact_data, job_id_list, job_id):
-
-        if job_id:
-            job_id_list.append(job_id)
-            artifact_data.append(artifact)
 
     def _get_last_insert_id(self, contenttype="jobs"):
         """Return last-inserted ID."""
