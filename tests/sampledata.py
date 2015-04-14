@@ -61,6 +61,14 @@ class SampleData(object):
                   os.path.dirname(__file__))) as f:
             self.job_artifact = f.readlines()
 
+        with open("{0}/sample_data/artifacts/text_log_summary.json".format(
+                  os.path.dirname(__file__))) as f:
+            self.bug_suggestions = json.load(f)
+
+        with open("{0}/sample_data/artifacts/bug_suggestions.json".format(
+                  os.path.dirname(__file__))) as f:
+            self.text_log_summary = json.load(f)
+
         self.job_data = []
         self.raw_pulse_data = []
         self.resultset_data = []

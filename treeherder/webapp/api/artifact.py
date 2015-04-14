@@ -58,6 +58,11 @@ class ArtifactViewSet(viewsets.ViewSet):
         job_guids = [x['job_guid'] for x in request.DATA]
         with JobsModel(project) as jobsModel, ArtifactsModel(project) as artifacts_model:
 
+            if request.QUERY_PARAMS.get('add_bug_suggestions', False):
+                pass
+                # queue an async task to generate bug suggestions for this
+                # artifact name
+
             job_id_lookup = jobsModel.get_job_ids_by_guid(job_guids)
             artifacts_model.load_job_artifacts(request.DATA, job_id_lookup)
 

@@ -1,0 +1,228 @@
+{
+    "blob": [
+        {
+            "search": "2018 INFO TEST-UNEXPECTED-FAIL | dom/indexedDB/test/test_transaction_lifetimes.html | Should be able to get objectStore - expected PASS",
+            "search_terms": ["test_transaction_lifetimes.html"],
+            "bugs": {
+                "open_recent": [
+                    {
+                        "crash_signature": "",
+                        "resolution": "",
+                        "summary": "Intermittent test_transaction_lifetimes.html | Should be able to get objectStore | Should be able to get index | Ordering is correct | Worker: uncaught exception",
+                        "relevance": 1,
+                        "keywords": "intermittent-failure",
+                        "os": "Linux",
+                        "id": 1114788
+                    }
+                ],
+                "all_others": [
+                    {
+                        "crash_signature": "",
+                        "resolution": "WORKSFORME",
+                        "summary": "Intermittent crash in test_add_put.html, test_transaction_lifetimes.html from ABORT: aborting because of fatal error: file e:/builds/moz2_slave/m-cen-w32-dbg/build/dom/ipc/ContentChild.cpp, line 643",
+                        "relevance": 1,
+                        "keywords": "crash,intermittent-failure",
+                        "os": "Windows XP",
+                        "id": 766676
+                    },
+                    {
+                        "crash_signature": "",
+                        "resolution": "FIXED",
+                        "summary": "Intermittent indexedDB/test/test_transaction_lifetimes.html | request.transaction should still be set - got null, expected [object IDBTransaction @ 0x263cd70 (native @ 0x2e77090)]",
+                        "relevance": 1,
+                        "keywords": "intermittent-failure",
+                        "os": "Linux",
+                        "id": 778180
+                    },
+                    {
+                        "crash_signature": "",
+                        "resolution": "WORKSFORME",
+                        "summary": "Intermittent test_transaction_lifetimes.html | Should be able to get objectStore | Should be able to get index | Ordering is correct.",
+                        "relevance": 1,
+                        "keywords": "intermittent-failure",
+                        "os": "Linux",
+                        "id": 783032
+                    },
+                    {
+                        "crash_signature": "",
+                        "resolution": "WORKSFORME",
+                        "summary": "Intermittent indexedDB/ipc/test_ipc.html | ... test_transaction_abort.html | uncaught JS exception - UnknownError at test_transaction_abort.js:295 (and a failure in test_transaction_lifetimes.html)",
+                        "relevance": 1,
+                        "keywords": "intermittent-failure",
+                        "os": "Windows 7",
+                        "id": 786625
+                    }
+                ]
+            }
+        },
+        {
+            "search": "2019 INFO TEST-UNEXPECTED-FAIL | dom/indexedDB/test/test_transaction_lifetimes.html | Should be able to get index - expected PASS",
+            "search_terms": ["test_transaction_lifetimes.html"],
+            "bugs": {
+                "open_recent": [
+                    {
+                        "crash_signature": "",
+                        "resolution": "",
+                        "summary": "Intermittent test_transaction_lifetimes.html | Should be able to get objectStore | Should be able to get index | Ordering is correct | Worker: uncaught exception",
+                        "relevance": 1,
+                        "keywords": "intermittent-failure",
+                        "os": "Linux",
+                        "id": 1114788
+                    }
+                ],
+                "all_others": [
+                    {
+                        "crash_signature": "",
+                        "resolution": "WORKSFORME",
+                        "summary": "Intermittent crash in test_add_put.html, test_transaction_lifetimes.html from ABORT: aborting because of fatal error: file e:/builds/moz2_slave/m-cen-w32-dbg/build/dom/ipc/ContentChild.cpp, line 643",
+                        "relevance": 1,
+                        "keywords": "crash,intermittent-failure",
+                        "os": "Windows XP",
+                        "id": 766676
+                    },
+                    {
+                        "crash_signature": "",
+                        "resolution": "FIXED",
+                        "summary": "Intermittent indexedDB/test/test_transaction_lifetimes.html | request.transaction should still be set - got null, expected [object IDBTransaction @ 0x263cd70 (native @ 0x2e77090)]",
+                        "relevance": 1,
+                        "keywords": "intermittent-failure",
+                        "os": "Linux",
+                        "id": 778180
+                    },
+                    {
+                        "crash_signature": "",
+                        "resolution": "WORKSFORME",
+                        "summary": "Intermittent test_transaction_lifetimes.html | Should be able to get objectStore | Should be able to get index | Ordering is correct.",
+                        "relevance": 1,
+                        "keywords": "intermittent-failure",
+                        "os": "Linux",
+                        "id": 783032
+                    },
+                    {
+                        "crash_signature": "",
+                        "resolution": "WORKSFORME",
+                        "summary": "Intermittent indexedDB/ipc/test_ipc.html | ... test_transaction_abort.html | uncaught JS exception - UnknownError at test_transaction_abort.js:295 (and a failure in test_transaction_lifetimes.html)",
+                        "relevance": 1,
+                        "keywords": "intermittent-failure",
+                        "os": "Windows 7",
+                        "id": 786625
+                    }
+                ]
+            }
+        },
+        {
+            "search": "2023 INFO TEST-UNEXPECTED-FAIL | dom/indexedDB/test/test_transaction_lifetimes.html | Ordering is correct. - expected PASS",
+            "search_terms": ["test_transaction_lifetimes.html"],
+            "bugs": {
+                "open_recent": [
+                    {
+                        "crash_signature": "",
+                        "resolution": "",
+                        "summary": "Intermittent test_transaction_lifetimes.html | Should be able to get objectStore | Should be able to get index | Ordering is correct | Worker: uncaught exception",
+                        "relevance": 1,
+                        "keywords": "intermittent-failure",
+                        "os": "Linux",
+                        "id": 1114788
+                    }
+                ],
+                "all_others": [
+                    {
+                        "crash_signature": "",
+                        "resolution": "WORKSFORME",
+                        "summary": "Intermittent crash in test_add_put.html, test_transaction_lifetimes.html from ABORT: aborting because of fatal error: file e:/builds/moz2_slave/m-cen-w32-dbg/build/dom/ipc/ContentChild.cpp, line 643",
+                        "relevance": 1,
+                        "keywords": "crash,intermittent-failure",
+                        "os": "Windows XP",
+                        "id": 766676
+                    },
+                    {
+                        "crash_signature": "",
+                        "resolution": "FIXED",
+                        "summary": "Intermittent indexedDB/test/test_transaction_lifetimes.html | request.transaction should still be set - got null, expected [object IDBTransaction @ 0x263cd70 (native @ 0x2e77090)]",
+                        "relevance": 1,
+                        "keywords": "intermittent-failure",
+                        "os": "Linux",
+                        "id": 778180
+                    },
+                    {
+                        "crash_signature": "",
+                        "resolution": "WORKSFORME",
+                        "summary": "Intermittent test_transaction_lifetimes.html | Should be able to get objectStore | Should be able to get index | Ordering is correct.",
+                        "relevance": 1,
+                        "keywords": "intermittent-failure",
+                        "os": "Linux",
+                        "id": 783032
+                    },
+                    {
+                        "crash_signature": "",
+                        "resolution": "WORKSFORME",
+                        "summary": "Intermittent indexedDB/ipc/test_ipc.html | ... test_transaction_abort.html | uncaught JS exception - UnknownError at test_transaction_abort.js:295 (and a failure in test_transaction_lifetimes.html)",
+                        "relevance": 1,
+                        "keywords": "intermittent-failure",
+                        "os": "Windows 7",
+                        "id": 786625
+                    }
+                ]
+            }
+        },
+        {
+            "search": "2024 INFO TEST-UNEXPECTED-FAIL | dom/indexedDB/test/test_transaction_lifetimes.html | Worker: uncaught exception [http://mochi.test:8888/tests/dom/indexedDB/test/unit/test_transaction_lifetimes.js:45]: ': InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable' - expected PASS",
+            "search_terms": ["test_transaction_lifetimes.html"],
+            "bugs": {
+                "open_recent": [
+                    {
+                        "crash_signature": "",
+                        "resolution": "",
+                        "summary": "Intermittent test_transaction_lifetimes.html | Should be able to get objectStore | Should be able to get index | Ordering is correct | Worker: uncaught exception",
+                        "relevance": 1,
+                        "keywords": "intermittent-failure",
+                        "os": "Linux",
+                        "id": 1114788
+                    }
+                ],
+                "all_others": [
+                    {
+                        "crash_signature": "",
+                        "resolution": "WORKSFORME",
+                        "summary": "Intermittent crash in test_add_put.html, test_transaction_lifetimes.html from ABORT: aborting because of fatal error: file e:/builds/moz2_slave/m-cen-w32-dbg/build/dom/ipc/ContentChild.cpp, line 643",
+                        "relevance": 1,
+                        "keywords": "crash,intermittent-failure",
+                        "os": "Windows XP",
+                        "id": 766676
+                    },
+                    {
+                        "crash_signature": "",
+                        "resolution": "FIXED",
+                        "summary": "Intermittent indexedDB/test/test_transaction_lifetimes.html | request.transaction should still be set - got null, expected [object IDBTransaction @ 0x263cd70 (native @ 0x2e77090)]",
+                        "relevance": 1,
+                        "keywords": "intermittent-failure",
+                        "os": "Linux",
+                        "id": 778180
+                    },
+                    {
+                        "crash_signature": "",
+                        "resolution": "WORKSFORME",
+                        "summary": "Intermittent test_transaction_lifetimes.html | Should be able to get objectStore | Should be able to get index | Ordering is correct.",
+                        "relevance": 1,
+                        "keywords": "intermittent-failure",
+                        "os": "Linux",
+                        "id": 783032
+                    },
+                    {
+                        "crash_signature": "",
+                        "resolution": "WORKSFORME",
+                        "summary": "Intermittent indexedDB/ipc/test_ipc.html | ... test_transaction_abort.html | uncaught JS exception - UnknownError at test_transaction_abort.js:295 (and a failure in test_transaction_lifetimes.html)",
+                        "relevance": 1,
+                        "keywords": "intermittent-failure",
+                        "os": "Windows 7",
+                        "id": 786625
+                    }
+                ]
+            }
+        }
+    ],
+    "type": "json",
+    "id": 8217465,
+    "name": "Bug suggestions",
+    "job_id": 1330578
+}
