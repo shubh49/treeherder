@@ -6,15 +6,16 @@ from django.http import HttpResponse, HttpResponseNotFound
 from treeherder.model.derived import DatasetNotFoundError
 import simplejson as json
 
-from treeherder.model.derived import JobsModel
+from treeherder.model.derived import JobsModel, ArtifactsModel
 
 
 def project_info(request, project):
     try:
-        jm = JobsModel(project)
-        return HttpResponse(content=json.dumps({'max_job_id': jm.get_max_job_id(),
+        jobs_model = JobsModel(project)
+        artifacts_model = ArtifactsModel(project)
+        return HttpResponse(content=json.dumps({'max_job_id': jobs_model.get_max_job_id(),
                                                 'max_performance_artifact_id':
-                                                jm.get_max_performance_artifact_id()}
+                                                artifacts_model.get_max_performance_artifact_id()}
                                                ),
                             content_type='application/json'
                             )
