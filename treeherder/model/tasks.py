@@ -172,3 +172,17 @@ def publish_resultset(project, ids):
             # messages will still get published... Well, assuming nothing goes
             # wrong, because we're not using confirm channels for publishing...
             publisher.connection.release()
+
+
+@task(name='populate-bug-suggestions')
+def populate_bug_suggestions(project, job_guid, error_lines):
+    from treeherder.model.derived import ArtifactsModel
+    from treeherder.model.bug_suggestions import get_bug_suggestions
+
+    with ArtifactsModel(project) as artifacts_model:
+        for t_range in settings.TREEHERDER_PERF_SERIES_TIME_RANGES:
+            for signature in series_data:
+                jm.store_performance_series(
+                    t_range['seconds'], series_type, signature,
+                    series_data[signature]
+                )

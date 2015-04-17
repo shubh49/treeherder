@@ -59,9 +59,16 @@ class ArtifactViewSet(viewsets.ViewSet):
         with JobsModel(project) as jobsModel, ArtifactsModel(project) as artifacts_model:
 
             if request.QUERY_PARAMS.get('add_bug_suggestions', False):
-                pass
                 # queue an async task to generate bug suggestions for this
                 # artifact name
+
+                # importing here to avoid an import loop
+                from treeherder.log_parser.tasks import parse_log
+                parse_log.apply_async(
+                    args=[project, log_obj, job["job_guid"]],
+                    kwargs={'check_errors': True},
+                    routing_key='parse_log.high_priority'
+                )
 
             job_id_lookup = jobsModel.get_job_ids_by_guid(job_guids)
             artifacts_model.load_job_artifacts(request.DATA, job_id_lookup)
